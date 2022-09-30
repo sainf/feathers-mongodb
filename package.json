@@ -1,14 +1,14 @@
 {
-  "name": "feathers-mongodb",
-  "description": "Feathers MongoDB service",
-  "version": "6.4.1",
-  "homepage": "https://github.com/feathersjs-ecosystem/feathers-mongodb",
+  "name": "feathers-mongodb-lookup",
+  "description": "Feathers MongoDB service - Bonus $lookup",
+  "version": "6.5.1",
+  "homepage": "https://github.com/sainf/feathers-mongodb",
   "repository": {
     "type": "git",
-    "url": "git://github.com/feathersjs-ecosystem/feathers-mongodb.git"
+    "url": "git://github.com/sainf/feathers-mongodb.git"
   },
   "bugs": {
-    "url": "https://github.com/feathersjs-ecosystem/feathers-mongodb/issues"
+    "url": "https://github.com/sainf/feathers-mongodb.git/issues"
   },
   "license": "MIT",
   "keywords": [
@@ -30,7 +30,8 @@
   "contributors": [
     "Eric Kryski <e.kryski@gmail.com> (http://erickryski.com)",
     "David Luecke <daff@neyeon.de> (http://neyeon.com)",
-    "Marshall Thompson <marshall@creativeideal.net>"
+    "Marshall Thompson <marshall@creativeideal.net>",
+    "Carlos Nogueira <suporte@sainf.com>"
   ],
   "main": "lib/",
   "types": "types",

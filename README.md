@@ -1,8 +1,49 @@
-# feathers-mongodb
+# feathers-mongodb-lookup
 
-[![CI](https://github.com/feathersjs-ecosystem/feathers-mongodb/workflows/CI/badge.svg)](https://github.com/feathersjs-ecosystem/feathers-mongodb/actions?query=workflow%3ACI)
-[![Dependency Status](https://img.shields.io/david/feathersjs-ecosystem/feathers-mongodb.svg?style=flat-square)](https://david-dm.org/feathersjs-ecosystem/feathers-mongodb)
-[![Download Status](https://img.shields.io/npm/dm/feathers-mongodb.svg?style=flat-square)](https://www.npmjs.com/package/feathers-mongodb)
+This is a fork from [feathers-mongodb](https://github.com/feathersjs-ecosystem/feathers-mongodb) just to add an personal hack.
+
+### $lookup
+
+feathers-mongodb does not support aggregations, and I don't like to make a lot of db calls (even with fastJoin and batchLoader) just to get an lookup (or a left join).
+
+#### Hook lookup
+To make it easy use it with [lookup hook](https://gist.github.com/sainf/06c4ed934f168c12c53187451f970f1f).
+
+__Needs a array with an object:__
+- `from` (**required**) - string - collection to join
+- `localField` (**required**) - string - field from the input documents
+- `foreignField` (**required**) - string - field from the documents of the "from" collection
+- `as` (**required**) - string - name of output array ou object, (**note:**) it will be prefixed automatic with '_l_'
+- `singleDoc` - boolean - if the return field is a array or an object, by default false (array)
+
+Just add another object to the array for multiple $lookup's!
+
+(** Tip **)
+It you use it on the Hook: before / all, it will strip the lookup fields on update and patch.
+
+### :wrench: WIP!!!
+
+
+```js
+export default {
+  before: {
+    all: [
+      authenticate('jwt'),
+      lookup(
+        [
+          {
+            from: 'prices',
+            localField: '_id',
+            foreignField: 'productId',
+            as: 'priceC',
+            singleDoc: true,
+          },
+        ],
+      ),
+    ],
+    // ....
+```
+
 
 A [Feathers](https://feathersjs.com) database adapter for [MongoDB](https://www.mongodb.org/) using [official NodeJS driver for MongoDB](https://www.npmjs.com/package/mongodb).
 
