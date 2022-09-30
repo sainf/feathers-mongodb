@@ -18,8 +18,8 @@ __Needs a array with an object:__
 
 Just add another object to the array for multiple $lookup's!
 
-(** Tip **)
-It you use it on the Hook: before / all, it will strip the lookup fields on update and patch.
+**Tip**
+- It you use it on the Hook: before / all, it will strip the lookup fields on update and patch.
 
 ### :wrench: WIP!!!
 
