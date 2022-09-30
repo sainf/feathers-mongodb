@@ -1,7 +1,7 @@
 {
   "name": "feathers-mongodb-lookup",
   "description": "Feathers MongoDB service - Bonus $lookup",
-  "version": "6.5.1",
+  "version": "6.5.2",
   "homepage": "https://github.com/sainf/feathers-mongodb",
   "repository": {
     "type": "git",
@@ -45,7 +45,6 @@
     "*.js"
   ],
   "scripts": {
-    "postpublish": "git push origin --tags && npm run changelog && git push origin",
     "changelog": "github_changelog_generator --user feathersjs-ecosystem --project feathers-mongodb && git add CHANGELOG.md && git commit -am \"Updating changelog\"",
     "release:patch": "npm version patch && npm publish",
     "release:minor": "npm version minor && npm publish",
