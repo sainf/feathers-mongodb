@@ -1,49 +1,92 @@
-# feathers-mongodb-lookup
+# feathers-mongodb-aggregate
 
-This is a fork from [feathers-mongodb](https://github.com/feathersjs-ecosystem/feathers-mongodb) just to add an personal hack.
-
-### $lookup
-
-feathers-mongodb does not support aggregations, and I don't like to make a lot of db calls (even with fastJoin and batchLoader) just to get an lookup (or a left join).
-
-#### Hook lookup
-To make it easy use it with [lookup hook](https://gist.github.com/sainf/06c4ed934f168c12c53187451f970f1f).
-
-__Needs a array with an object:__
-- `from` (**required**) - string - collection to join
-- `localField` (**required**) - string - field from the input documents
-- `foreignField` (**required**) - string - field from the documents of the "from" collection
-- `as` (**required**) - string - name of output array ou object, (**note:**) it will be prefixed automatic with '_l_'
-- `singleDoc` - boolean - if the return field is a array or an object, by default false (array)
-
-Just add another object to the array for multiple $lookup's!
-
-**Tip**
-- It you use it on the Hook: before / all, it will strip the lookup fields on update and patch.
+This is a fork from [feathers-mongodb](https://github.com/feathersjs-ecosystem/feathers-mongodb) with option agregate on find and get
 
 ### :wrench: WIP!!!
+but kind of works
 
+## Before!
+Check if [fastjoin](https://hooks-common.feathersjs.com/guides.html#fastjoin) with [batchLoader](https://hooks-common.feathersjs.com/guides.html#using-a-simple-batch-loader) works for you.
+
+
+## Why
+FeathersJs is great, but with MongoDB something like a lookup is very db intensive for multiple documents, since feathers-mongodb does not support aggregations I made some changes.
+
+Just add an array (aggregate) to params
 
 ```js
 export default {
   before: {
     all: [
       authenticate('jwt'),
-      lookup(
-        [
-          {
-            from: 'prices',
-            localField: '_id',
-            foreignField: 'productId',
-            as: 'priceC',
-            singleDoc: true,
-          },
-        ],
-      ),
     ],
-    // ....
+    find: [
+      (context) => {
+        context.params.aggregate = [
+          {
+            $lookup: {
+              from: 'storage',
+              localField: '_id',
+              foreignField: 'productId',
+              as: '_l_stock',
+            },
+          },
+          {
+            $set: {
+              _l_prices: { $arrayElemAt: ['$_l_stock.currentStock', 0] },
+            },
+          },
+        ]
+        return context
+      },
+    ],
+
 ```
 
+## Some important notes:
+
+You can use all that the MongoDb [aggregate](https://www.mongodb.com/docs/v5.0/reference/operator/aggregation-pipeline/) has to offer, but...
+
+To use the native FeathersJS options I arrange the aggregate array like this:
+
+```js
+somedb.aggregate(
+  [
+    {
+      $match: {
+        // FeathersJS query
+        }
+    },
+    {
+      // Your aggregate array!
+      // Your aggregate array!
+      // Your aggregate array!
+    },
+    {
+      $sort: {
+        // FeathersJS sort
+      }
+    },
+    {
+      $limit: // FeathersJS limit
+    },
+    {
+      $skip: // FeathersJS skip
+    }
+]
+
+```
+
+#### [Sample hook](https://gist.github.com/sainf/06c4ed934f168c12c53187451f970f1f).
+(not necessary)
+
+**TODO**
+- Count
+- Tests
+
+
+
+---
 
 A [Feathers](https://feathersjs.com) database adapter for [MongoDB](https://www.mongodb.org/) using [official NodeJS driver for MongoDB](https://www.npmjs.com/package/mongodb).
 
@@ -64,7 +107,7 @@ Returns a new service instance initialized with the given options. `Model` has t
 
 ```js
 const MongoClient = require('mongodb').MongoClient;
-const service = require('feathers-mongodb');
+const service = require('feathers-mongodb-lookup');
 
 MongoClient.connect('mongodb://localhost:27017/feathers').then(client => {
   app.use('/messages', service({
@@ -146,7 +189,7 @@ const express = require('@feathersjs/express');
 const socketio = require('@feathersjs/socketio');
 
 const MongoClient = require('mongodb').MongoClient;
-const service = require('feathers-mongodb');
+const service = require('feathers-mongodb-lookup');
 
 // Create an Express compatible Feathers application instance.
 const app = express(feathers());

@@ -1,5 +1,5 @@
 import { MongoClient } from 'mongodb';
-import { default as mongodb, Service } from 'feathers-mongodb';
+import { default as mongodb, Service } from 'feathers-mongodb-aggregate';
 
 MongoClient.connect('mongodb://localhost:27017/feathers').then(client => {
   const service1 = mongodb({

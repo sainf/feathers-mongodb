@@ -1,14 +1,14 @@
 {
-  "name": "feathers-mongodb-lookup",
-  "description": "Feathers MongoDB service - Bonus $lookup",
-  "version": "6.5.2",
-  "homepage": "https://github.com/sainf/feathers-mongodb",
+  "name": "feathers-mongodb-aggregate",
+  "description": "Feathers MongoDB service - aggregate",
+  "version": "6.5.0",
+  "homepage": "https://github.com/sainf/feathers-mongodb-aggregate",
   "repository": {
     "type": "git",
-    "url": "git://github.com/sainf/feathers-mongodb.git"
+    "url": "git://github.com/sainf/feathers-mongodb-aggregate.git"
   },
   "bugs": {
-    "url": "https://github.com/sainf/feathers-mongodb.git/issues"
+    "url": "https://github.com/sainf/feathers-mongodb-aggregate.git/issues"
   },
   "license": "MIT",
   "keywords": [
@@ -20,7 +20,8 @@
     "mongo",
     "mongoskin",
     "mongodb",
-    "service"
+    "service",
+    "aggregate"
   ],
   "author": {
     "name": "Feathers contributors",
