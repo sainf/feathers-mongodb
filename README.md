@@ -33,7 +33,7 @@ export default {
           },
           {
             $set: {
-              _l_prices: { $arrayElemAt: ['$_l_stock.currentStock', 0] },
+              _l_stock: { $arrayElemAt: ['$_l_stock.currentStock', 0] },
             },
           },
         ]
