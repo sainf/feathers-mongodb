@@ -63,6 +63,12 @@ somedb.aggregate(
       // Your aggregate array!
     },
     {
+      $project: {
+        $select: // FeathersJS select
+      }
+    },
+    
+    {
       $sort: {
         // FeathersJS sort
       }
@@ -81,8 +87,7 @@ somedb.aggregate(
 (not necessary)
 
 **TODO**
-- Count
-- Tests
+- Count / test
 
 
 

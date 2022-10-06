@@ -1,7 +1,7 @@
 {
   "name": "feathers-mongodb-aggregate",
   "description": "Feathers MongoDB service - aggregate",
-  "version": "6.5.0",
+  "version": "6.5.1",
   "homepage": "https://github.com/sainf/feathers-mongodb-aggregate",
   "repository": {
     "type": "git",
