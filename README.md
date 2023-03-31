@@ -1,5 +1,7 @@
 # feathers-mongodb-aggregate
 
+### Feathers v5 has Aggregations (archiving)
+
 This is a fork from [feathers-mongodb](https://github.com/feathersjs-ecosystem/feathers-mongodb) with option agregate on find and get
 
 ### :wrench: WIP!!!
